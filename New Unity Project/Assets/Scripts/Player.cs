@@ -9,12 +9,15 @@ public class Player : MonoBehaviour
     [SerializeField] float gravity = 5f;
 
     private List<GameObject> pacientes  =  new List<GameObject>();
-    GameObject mais_proximo = null;
+    private List<GameObject> Interagiveis  =  new List<GameObject>();
+    GameObject closerpatient = null;
+    GameObject closerobj = null;
     bool carregando = false;
     bool isWorking = false;
+    public Rigidbody rb;
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -25,46 +28,67 @@ public class Player : MonoBehaviour
     }
 
     private void Move(){
-        var deltaX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
-        var newPosX = transform.position.x + deltaX;
-        var deltaZ = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
-        var newPosZ = transform.position.z + deltaZ;
-        transform.position = new Vector3(newPosX, transform.position.y, newPosZ);
+        rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * moveSpeed;
     }
 
     private void GuiandoPaciente(){
         if(Input.GetButtonDown("Fire1") && !carregando){
-            carregando = true;
             foreach(GameObject paciente in pacientes){
-                if (mais_proximo == null){
-                    mais_proximo = paciente;
+                if (closerpatient == null){
+                    closerpatient = paciente;
                 }
                 else{
-                    if(Vector3.Distance(mais_proximo.transform.position, transform.position) > Vector3.Distance(paciente.transform.position, transform.position)){
-                        mais_proximo = paciente;
+                    if(Vector3.Distance(closerpatient.transform.position, transform.position) > Vector3.Distance(paciente.transform.position, transform.position)){
+                        closerpatient = paciente;
                     }
                 }
             }
-            mais_proximo.GetComponent<Patient>().follow(transform);
+            if (closerpatient.GetComponent<Patient>().ocupado){
+                closerpatient.GetComponent<Patient>().utilizando.GetComponent<Leito>().removepatient();
+            }
+            closerpatient.GetComponent<Patient>().follow(transform);
+            carregando = true;
         }
         else if(Input.GetButtonDown("Fire1") && carregando){
+            foreach(GameObject obj in Interagiveis){
+                if (closerobj == null){
+                    closerobj = obj;
+                }
+                else{
+                    if(Vector3.Distance(closerobj.transform.position, transform.position) > Vector3.Distance(obj.transform.position, transform.position)){
+                        closerobj = obj;
+                    }
+                }
+            }
+            if (closerobj != null){
+                if (!closerobj.GetComponent<Leito>().ocupado){
+                    closerobj.GetComponent<Leito>().putpatient(closerpatient);
+                }
+            }
             carregando = false;
-            mais_proximo.GetComponent<Patient>().unfollow();
-            mais_proximo  = null;
+            closerpatient.GetComponent<Patient>().unfollow();
+            closerpatient  = null;
         }
+        closerobj = null;
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag  == "Paciente"){
             pacientes.Add(other.gameObject);
         }
+        if (other.tag == "Interagivel"){
+            Interagiveis.Add(other.gameObject);
+        }
     }
 
     private void OnTriggerExit(Collider other) {
         if (other.tag  == "Paciente"){
-            if (other.gameObject != mais_proximo){
+            if (other.gameObject != closerpatient){
                 pacientes.Remove(other.gameObject);
             }
+        }
+        if (other.tag == "Interagivel"){
+            Interagiveis.Remove(other.gameObject);
         }
     }
 }

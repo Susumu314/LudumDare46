@@ -9,6 +9,8 @@ public class Patient : MonoBehaviour
     private Transform playerpos;
     private Vector3 target;
     private bool seguir = false;
+    public bool ocupado = false;
+    public GameObject utilizando;
     void Start()
     {
         
@@ -17,10 +19,10 @@ public class Patient : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (seguir){
+        if (seguir && !ocupado){
             Vector3 dir = (playerpos.position - transform.position).normalized;
             target = playerpos.position - dir * playerdist;
-            transform.position = Vector3.MoveTowards(transform.position, target, .05f);
+            transform.position = Vector3.MoveTowards(transform.position, target, .1f);
         }
     }
 
@@ -33,5 +35,9 @@ public class Patient : MonoBehaviour
         seguir = false;
         playerpos = null;
         print("parei de seguir o  player");
+    }
+    public void usando(GameObject obj){
+        utilizando = obj;
+        ocupado = true;
     }
 }
