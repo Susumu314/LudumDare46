@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8562005049746923568}
   - component: {fileID: 1155434328936908077}
   - component: {fileID: 7346528432091817345}
+  - component: {fileID: 7523663827370709318}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -36,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.924}
+  m_AnchoredPosition: {x: 0, y: 1.41}
   m_SizeDelta: {x: 1118, y: 629}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8562005049746923568
@@ -99,6 +100,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7523663827370709318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254378702377881447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05fea2d9f1a61d64d9c92c001647e39d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paciente: {fileID: 7804498259340271221}
 --- !u!1 &1918984518572099474
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +139,7 @@ RectTransform:
   m_GameObject: {fileID: 1918984518572099474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children:
   - {fileID: 172457153417650076}
   - {fileID: 4663710629407946894}

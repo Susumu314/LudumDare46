@@ -5,7 +5,7 @@ using UnityEngine;
 public class Leito : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] string funcao = "";
+    [SerializeField] public string funcao = "";
     public bool ocupado = false;
     GameObject paciente;
     void Start()
@@ -60,7 +60,7 @@ public class Leito : MonoBehaviour
     }
 
     private void cama(){
-        if  ((paciente.GetComponent<Patient>().cansaco -= 1 * Time.deltaTime) < 0){
+        if  ((paciente.GetComponent<Patient>().cansaco -= 0.2f * Time.deltaTime) < 0){
             paciente.GetComponent<Patient>().cansaco = 0;
         }
     }

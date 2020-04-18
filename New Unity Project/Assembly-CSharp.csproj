@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Patient.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\ProgressBar.cs" />
+     <Compile Include="Assets\Scripts\SliderScript.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.10f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
