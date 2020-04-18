@@ -29,10 +29,13 @@ public class Player : MonoBehaviour
 
     private void Move(){
         rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * moveSpeed;
+        if (rb.velocity != Vector3.zero){
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(rb.velocity), 0.15F);
+        }
     }
 
     private void GuiandoPaciente(){
-        if(Input.GetButtonDown("Fire1") && !carregando){
+        if(Input.GetButtonDown("Fire1") && closerpatient == null){
             foreach(GameObject paciente in pacientes){
                 if (closerpatient == null){
                     closerpatient = paciente;
@@ -49,7 +52,7 @@ public class Player : MonoBehaviour
             closerpatient.GetComponent<Patient>().follow(transform);
             carregando = true;
         }
-        else if(Input.GetButtonDown("Fire1") && carregando){
+        else if(Input.GetButtonDown("Fire1") && closerpatient != null){
             foreach(GameObject obj in Interagiveis){
                 if (closerobj == null){
                     closerobj = obj;

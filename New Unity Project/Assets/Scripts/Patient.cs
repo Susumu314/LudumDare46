@@ -6,6 +6,7 @@ public class Patient : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] float playerdist = 0.5f;
+    [SerializeField] public float cansaco = 2f;
     private Transform playerpos;
     private Vector3 target;
     private bool seguir = false;
@@ -39,5 +40,6 @@ public class Patient : MonoBehaviour
     public void usando(GameObject obj){
         utilizando = obj;
         ocupado = true;
+        GetComponent<BoxCollider>().isTrigger = true;
     }
 }
